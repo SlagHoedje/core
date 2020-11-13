@@ -17,6 +17,12 @@ public:
 
     ~StringView();
 
+    bool operator==(const char*) const;
+    bool operator!=(const char*) const;
+
+    bool operator==(const StringView&) const;
+    bool operator!=(const StringView&) const;
+
     size_t length() const;
     const char* data() const;
 

@@ -50,6 +50,34 @@ StringView::~StringView()
 {
 }
 
+bool String::operator==(const char* other) const
+{
+    if (m_length != strlen(other)) {
+        return false;
+    }
+
+    return !strncmp(m_inner, other, m_length);
+}
+
+bool String::operator!=(const char* other) const
+{
+    return !(*this == other);
+}
+
+bool String::operator==(const StringView& other) const
+{
+    if (m_length != other.length()) {
+        return false;
+    }
+
+    return !strncmp(m_inner, other.data(), m_length);
+}
+
+bool String::operator!=(const StringView& other) const
+{
+    return !(*this == other);
+}
+
 size_t StringView::length() const
 {
     return m_length;
