@@ -128,3 +128,97 @@ private:
     u8 m_storage[sizeof(T)];
     bool m_has_value;
 };
+
+template <typename T>
+class Optional<T*> {
+public:
+    Optional()
+        : m_pointer(nullptr)
+    {
+    }
+
+    Optional(T*&& value)
+        : m_pointer(value)
+    {
+    }
+
+    Optional(const T*& value)
+        : m_pointer(value)
+    {
+    }
+
+    Optional(Optional&& other)
+        : m_pointer(other.m_pointer)
+    {
+        other.m_pointer = nullptr;
+    }
+
+    Optional(const Optional& other)
+        : m_pointer(other.m_pointer)
+    {
+    }
+
+    Optional& operator=(Optional&& other)
+    {
+        if (this == &other) {
+            return *this;
+        }
+
+        clear();
+
+        m_pointer = other.m_pointer;
+        other.m_pointer = nullptr;
+
+        return *this;
+    }
+
+    Optional& operator=(const Optional& other)
+    {
+        if (this == &other) {
+            return *this;
+        }
+
+        clear();
+
+        m_pointer = other.m_pointer;
+
+        return *this;
+    }
+
+    ~Optional()
+    {
+        clear();
+    }
+
+    void clear()
+    {
+        m_pointer = nullptr;
+    }
+
+    bool has_value() const
+    {
+        return m_pointer != nullptr;
+    }
+
+    const T*& value() const
+    {
+        ASSERT(m_pointer != nullptr, "option does not contain a value");
+        return m_pointer;
+    }
+
+    T*& value()
+    {
+        ASSERT(m_pointer != nullptr, "option does not contain a value");
+        return m_pointer;
+    }
+
+    T* take()
+    {
+        T* released_pointer = m_pointer;
+        clear();
+        return released_pointer;
+    }
+
+private:
+    T* m_pointer;
+};
