@@ -50,7 +50,7 @@ StringView::~StringView()
 {
 }
 
-bool String::operator==(const char* other) const
+bool StringView::operator==(const char* other) const
 {
     if (m_length != strlen(other)) {
         return false;
@@ -59,12 +59,12 @@ bool String::operator==(const char* other) const
     return !strncmp(m_inner, other, m_length);
 }
 
-bool String::operator!=(const char* other) const
+bool StringView::operator!=(const char* other) const
 {
     return !(*this == other);
 }
 
-bool String::operator==(const StringView& other) const
+bool StringView::operator==(const StringView& other) const
 {
     if (m_length != other.length()) {
         return false;
@@ -73,7 +73,7 @@ bool String::operator==(const StringView& other) const
     return !strncmp(m_inner, other.data(), m_length);
 }
 
-bool String::operator!=(const StringView& other) const
+bool StringView::operator!=(const StringView& other) const
 {
     return !(*this == other);
 }
