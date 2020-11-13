@@ -45,6 +45,38 @@ public:
         }
     }
 
+    Optional& operator=(Optional&& other)
+    {
+        if (this == &other) {
+            return *this;
+        }
+
+        clear();
+
+        m_has_value = other.m_has_value;
+        if (m_has_value) {
+            new (slot()) T(other.take());
+        }
+
+        return *this;
+    }
+
+    Optional& operator=(const Optional& other)
+    {
+        if (this == &other) {
+            return *this;
+        }
+
+        clear();
+
+        m_has_value = other.m_has_value;
+        if (m_has_value) {
+            new (slot()) T(other.value());
+        }
+
+        return *this;
+    }
+
     ~Optional()
     {
         clear();
