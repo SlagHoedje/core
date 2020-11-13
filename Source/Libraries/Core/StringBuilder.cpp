@@ -29,6 +29,18 @@ void StringBuilder::append(const StringView& string_view)
     m_length += string_view.length();
 }
 
+void StringBuilder::repeat(char character, int amount)
+{
+    if (amount == 0) {
+        return;
+    }
+
+    ensure_capacity(m_length + amount);
+
+    memset(&m_bytes[m_length], character, amount);
+    m_length += amount;
+}
+
 void StringBuilder::clear()
 {
     m_bytes.clear();

@@ -33,6 +33,8 @@ public:
         }
     }
 
+    void repeat(char, int amount);
+
     void clear();
 
     String to_string() const;
