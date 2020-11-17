@@ -1,21 +1,22 @@
 #pragma once
 
+#include <Core/Macros.h>
 #include <Core/Types.h>
 #include <stdarg.h>
 
 class PrintStream {
 public:
-    inline void print() { }
+    ALWAYS_INLINE void print() { }
 
     template <typename T, typename... A>
-    void print(const T& value, const A&... values)
+    ALWAYS_INLINE void print(const T& value, const A&... values)
     {
         append(value);
         print(values...);
     }
 
     template <typename... A>
-    void println(const A&... values)
+    ALWAYS_INLINE void println(const A&... values)
     {
         print(values..., '\n');
     }

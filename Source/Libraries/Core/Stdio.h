@@ -13,12 +13,12 @@ private:
     FILE* m_file;
 };
 
-inline FilePrintStream cout()
+ALWAYS_INLINE FilePrintStream cout()
 {
     return FilePrintStream(stdout);
 }
 
-inline FilePrintStream cerr()
+ALWAYS_INLINE FilePrintStream cerr()
 {
     return FilePrintStream(stderr);
 }
