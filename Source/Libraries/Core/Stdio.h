@@ -17,3 +17,8 @@ inline FilePrintStream cout()
 {
     return FilePrintStream(stdout);
 }
+
+inline FilePrintStream cerr()
+{
+    return FilePrintStream(stderr);
+}

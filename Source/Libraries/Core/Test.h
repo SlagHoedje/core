@@ -1,8 +1,8 @@
 #pragma once
 
 #include <Core/Move.h>
+#include <Core/Stdio.h>
 #include <Core/Vector.h>
-#include <stdio.h>
 
 class Test {
 public:
@@ -41,10 +41,10 @@ public:
 
     void run()
     {
-        printf("Running %zu test(s).\n", m_tests.size());
+        cout().println("Running ", m_tests.size(), " test(s).");
 
         for (const Test& test : m_tests) {
-            printf("Running test '%s'\n", test.name());
+            cout().println("Running test '", test.name(), '\'');
             test.exec();
         }
     }
@@ -65,9 +65,9 @@ TestSuite TestSuite::global = TestSuite();
         0);                                                    \
     void __test_##name()
 
-#define EXPECT_EQ(x, y) static_cast<bool>((x) == (y)) ? void(0) : (void)printf("FAIL: %s:%d: Expect EQ failed: %s != %s\n", __FILE__, __LINE__, #x, #y)
-#define EXPECT_NEQ(x, y) static_cast<bool>((x) != (y)) ? void(0) : (void)printf("FAIL: %s:%d: Expect NEQ failed: %s == %s\n", __FILE__, __LINE__, #x, #y)
-#define EXPECT(x) static_cast<bool>(x) ? void(0) : (void)printf("FAIL: %s:%d: Expect %s failed\n", __FILE__, __LINE__, #x)
+#define EXPECT_EQ(x, y) static_cast<bool>((x) == (y)) ? void(0) : cerr().println("FAIL: ", __FILE__, ':', __LINE__, ": Expect EQ failed: ", #x, " != ", #y)
+#define EXPECT_NEQ(x, y) static_cast<bool>((x) != (y)) ? void(0) : cerr().println("FAIL: ", __FILE__, ':', __LINE__, ": Expect NEQ failed: ", #x, " == ", #y)
+#define EXPECT(x) static_cast<bool>(x) ? void(0) : cerr().println("FAIL: ", __FILE__, ':', __LINE__, ": Expect '", #x, "' failed")
 
 int main()
 {
