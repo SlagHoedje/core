@@ -5,7 +5,7 @@
 
 class PrintStream {
 public:
-    void print() { }
+    inline void print() { }
 
     template <typename T, typename... A>
     void print(const T& value, const A&... values)
